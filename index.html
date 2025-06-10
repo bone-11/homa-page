@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <style> .results-carousel .item img { width: 512px; height: 512px; } </style>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="HunyuanVideo-HOMA: Generic Human-Object Interaction in Multimodal Driven Human Animation">
+  <meta name="keywords" content="Video Generation, Camera Motion transfer, Camera-Object Motion, Disentanglement">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title style="color: white;">HunyuanVideo-HOMA: Generic Human-Object Interaction in Multimodal Driven Human Animation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+
+  <style>
+    .rainbow-text {
+      background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  </style>
+
+</head>
+
+
+
+<body style="background-color: black;">
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-3 publication-title" style="color: white;"><span class="rainbow-text" style="font-size: 60px;">HunyuanVideo-HOMA</span> <br> 
+                <span style="font-size: 40px;"> Generic Human-Object Interaction in Multimodal Driven Human Animation</span> </h1>
+
+            <!-- <div class="is-size-5 publication-authors">
+              <span class="author-block" >
+                <a>Hunyuan Team</a><sup></sup></span> -->
+              <!-- <span class="author-block">
+                <a href="https://sjtuplayer.github.io/">Teng Hu</a><sup>1*</sup>,</span>
+              <span class="author-block">
+                <a href="https://zhangzjn.github.io/">Jiangning Zhang</a><sup>2*</sup>,</span>
+              <span class="author-block">
+                <a href="https://yiranran.github.io/">Ran Yi</a><sup>1#</sup>,
+              </span>
+              <span class="author-block">
+                <a>Yating Wang</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a>Hongrui Huang</a><sup>3</sup>,
+              </span>
+              <br />
+              <span class="author-block">
+                <a > Jieyu Weng</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a>Yabiao Wang</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a >Lizhuang Ma</a><sup>1</sup>
+              </span> -->
+            <!-- </div> -->
+  
+  
+            <!-- <div class="column has-text-centered">
+              <div class="publication-links"> -->
+                <!-- PDF Link. -->
+                <!-- <span class="link-block">
+                  <a href=""
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span> -->
+                <!-- <span class="link-block">
+                  <a href=""
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span> -->
+                <!-- Code Link. -->
+                <!-- <span class="link-block">
+                  <a href=""
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
+                </span> -->
+                <!-- Dataset Link. -->
+                <!-- <span class="link-block">
+                  <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="far fa-images"></i>
+                    </span>
+                    <span>Data</span>
+                    </a> -->
+              <!-- </div> -->
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- <section class="section" id="teaser">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+      <div class="column has-text-centered">
+        <div class="content">
+          <h3 class="title is-4">
+            Camera Motion Control
+          </h3>
+          <div class="item">
+<iframe width="1024" height="576" src="https://www.youtube.com/embed/o3Fk4RgWC4A?si=RXqn2DaPy_4QfQYC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+</section> -->
+
+<!-- 单独放视频部分 -->
+<section class="teaser-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <style class="video-style1">
+          .videos-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+          }
+
+          .videos-container-3x2 .video-item {
+            flex: 0 0 calc(33.333% - 7px);
+            box-sizing: border-box;
+          }
+
+          .video-item video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            background-color: #000;
+          }
+        </style>
+
+        <!-- <div class="videos-container videos-container-3x2">
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/TeaserDemo/此生约定-1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/TeaserDemo/潮起潮落-纯绿.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/TeaserDemo/哪吒-校园.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/TeaserDemo/唐伯虎.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/TeaserDemo/哪吒1.mp4" type="video/mp4">
+            </video>
+          </div>
+
+
+
+
+
+
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/TeaserDemo/circle-of-life-1.mp4" type="video/mp4">
+            </video>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="columns is-centered">
+          <video id="teaser" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/TeaserDemo/demo2_720p.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+
+
+
+        <h2 class="title is-3" style="color: white;">Abstract</h2>
+        <div class="content has-text-justified">
+          <p style="color: white;">
+            To address key limitations in human-object interaction (HOI) video generation—specifically
+             the reliance on curated motion data, limited generalization to novel objects/scenarios, and
+             restricted accessibility—we introduce HunyuanVideo-HOMA, a weakly conditioned multimodal-driven 
+             framework. HunyuanVideo-HOMA enhances controllability and reduces dependency on precise inputs 
+             through sparse, decoupled motion guidance. It encodes appearance and motion signals into the dual 
+             input space of a multimodal diffusion transformer (MMDiT), fusing them within a shared context 
+             space to synthesize temporally consistent and physically plausible interactions. To optimize 
+             training, we integrate a parameter-space HOI adapter initialized from pretrained MMDiT weights, 
+             preserving prior knowledge while enabling efficient adaptation, and a facial cross-attention 
+             adapter for anatomically accurate audio-driven lip synchronization. Extensive experiments confirm 
+             state-of-the-art performance in interaction naturalness and generalization under weak supervision. 
+             Finally, HunyuanVideo-HOMA demonstrates versatility in text-conditioned generation and interactive 
+             object manipulation, supported by a user-friendly demo interface.
+        </div>
+
+        <!-- <div class="has-text-centered" style="margin-top: 2em;">
+          <figure class="image" style="display: block; position: relative; width: 100%; overflow: visible;">
+            <img src="./static/fig/teaser.png" alt="Descriptive alt text" style="width: 140%; max-width: 900px; position: relative; left: 50%; transform: translateX(-50%);">
+          </figure>
+        </div> -->
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="color: white;">Weak Condition for HOI</h2>
+        <div>
+          <h2 class="content has-text-justified" style="color: white;">
+            We explore a weak HOI condition, where each component of the human pose can be optionally removed, 
+            and the object’s motion is a sequence of dots indicating the center points of its trajectory.
+          </h2>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <img src="./static/fig/condition.png" alt="静态图" width="950">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="color: white;">Method Framework</h2>
+        <div>
+          <h2 class="content has-text-justified" style="color: white; width: 140%; max-width: 900px; position: relative; left: 50%; transform: translateX(-50%);">
+            Architecture of HunyuanVideo-HOMA. HunyuanVideo-HOMA is built upon the multi-modal diffusion
+            transformer (MMDiT) and is composed of context fusion, HOI adapter, and audio adapter.
+          </h2>
+        </div>
+        <div class="has-text-centered" style="margin-top: 2em;">
+          <figure class="image" style="display: block; position: relative; width: 100%; overflow: visible;">
+            <img src="./static/fig/method.png" alt="Descriptive alt text" style="width: 140%; max-width: 900px; position: relative; left: 50%; transform: translateX(-50%);">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4" style="color: white;">Different types of poses</h2>
+        <div style="display: flex; align-items: center;">
+          <img src="./static/gifs/poses.gif" alt="动图" width="950">
+        </div>
+
+        <div>
+          <h2 class="content has-text-justified" style="color: white; width: 100%; max-width: 950px; position: relative; left: 50%; transform: translateX(-50%);">
+            We demonstrate the controllability of our method across a variety of weak human pose scenarios. 
+            The results show that our framework effectively 
+            adapts to diverse poses while maintaining coherent object interactions and consistent appearance.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4" style="color: white;">Sparse pose combined with text</h2>
+        <div style="display: flex; align-items: center;">
+          <img src="./static/gifs/text.gif" alt="动图" width="950">
+        </div>
+
+        <div>
+          <h2 class="content has-text-justified" style="color: white; width: 100%; max-width: 950px; position: relative; left: 50%; transform: translateX(-50%);">
+            We explore the impact of combining weak pose guidance with text-based control.
+            The results demonstrate that our method can effectively integrate minimal pose 
+            information with textual semantics to generate coherent and semantically aligned motions.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <div class="container has-text-centered">
+  <p><strong>Our demo is divided into two parts: firstly, <a href="#experimental-results" class="highlighted-link">all our experimental results</a>, and secondly, we provide a <a href="#gallery" class="highlighted-link">gallery to showcase various effects</a>.</strong></p>
+</div> -->
+
+
+<!-- <section class="demo4-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+
+      <div class="column is-full">
+
+        <div class="has-text-centered">
+          <h2 class="title is-4" style="color: white;">
+            Results with various objects
+          </h2>
+        </div>
+
+        <div style="height: 20px;"></div>
+
+        <p style="color: white;">
+        </p>
+
+        <div style="height: 20px;"></div>
+
+        <style class="video-style2">
+          .videos-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+          }
+
+          .videos-container-2 .video-item {
+            flex: 0 0 calc(50% - 7.5px);
+            box-sizing: border-box;
+          }
+
+          .video-item video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            background-color: #000;
+          }
+        </style>
+
+        <div class="videos-container videos-container-2">
+
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/open2.mp4" type="video/mp4">
+            </video>
+          </div>
+
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/open3.mp4" type="video/mp4">
+            </video>
+          </div>
+
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/open4.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/open5.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/open6.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/open7.mp4" type="video/mp4">
+            </video>
+          </div>
+
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/open8.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/open9.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/open1.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- Video carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="has-text-centered">
+        <h2 class="title is-4" style="color: white;">
+          Results with various objects
+        </h2>
+      </div>
+
+      <div style="height: 20px;"></div>
+
+      <p style="color: white;">
+      </p>
+
+      <div style="height: 20px;"></div>
+
+
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <video poster="" id="video1" autoplay controls muted loop height="100%">
+            <!-- Your video file here -->
+            <source src="./static/demo/open5.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <video poster="" id="video2" autoplay controls muted loop height="100%">
+            <!-- Your video file here -->
+            <source src="./static/demo/open3.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <video poster="" id="video3" autoplay controls muted loop height="100%">\
+            <!-- Your video file here -->
+            <source src="./static/demo/open4.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video4">
+          <video poster="" id="video4" autoplay controls muted loop height="100%">\
+            <!-- Your video file here -->
+            <source src="./static/demo/open6.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video5">
+          <video poster="" id="video5" autoplay controls muted loop height="100%">\
+            <!-- Your video file here -->
+            <source src="./static/demo/open2.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <!-- <div class="item item-video6">
+          <video poster="" id="video6" autoplay controls muted loop height="100%">\
+            <source src="./static/demo/open7.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video7">
+          <video poster="" id="video7" autoplay controls muted loop height="100%">\
+            <source src="./static/demo/open8.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video8">
+          <video poster="" id="video8" autoplay controls muted loop height="100%">\
+            <source src="./static/demo/open9.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-video9">
+          <video poster="" id="video9" autoplay controls muted loop height="100%">\
+            <source src="./static/demo/open1.mp4"
+            type="video/mp4">
+          </video>
+        </div> -->
+      </div>
+
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video6">
+          <video poster="" id="video6" autoplay controls muted loop height="100%">\
+            <!-- Your video file here -->
+            <source src="./static/demo/open7.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video7">
+          <video poster="" id="video7" autoplay controls muted loop height="100%">\
+            <!-- Your video file here -->
+            <source src="./static/demo/open8.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video8">
+          <video poster="" id="video8" autoplay controls muted loop height="100%">\
+            <!-- Your video file here -->
+            <source src="./static/demo/open9.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-video9">
+          <video poster="" id="video9" autoplay controls muted loop height="100%">\
+            <!-- Your video file here -->
+            <source src="./static/demo/open1.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video9">
+          <video poster="" id="video9" autoplay controls muted loop height="100%">\
+            <!-- Your video file here -->
+            <source src="./static/demo/open1.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+
+      
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero is-small">
+  <div class="hero-body"> 
+    <div class="container">
+      <div class="has-text-centered">
+        <h2 class="title is-4" style="color: white;">
+          Results with various objects
+        </h2>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel" style="width:70%;height:70%;object-fit: fill;object-fit: contain;object-fit: scale-down;margin: auto;">
+        <div id="slider9965b56b-c194-47ea-928a-d5104b999d1c" class="slider" tabindex="0">
+            <div class="slider-container" style="opacity: 1; width: 8469px; transition: none; transform: translate3d(0px, 0px, 0px);">
+              <div class="slider-item" data-slider-index="0" data-cloned="true" style="width: 941px;">
+                <div class="item item-video1">
+                  <video poster="" id="" autoplay="" controls="" muted="" loop="" height="100%">
+                    <source src="./static/demo/open2.mp4" type="video/mp4">
+                  </video>
+                </div></div>
+              <div class="slider-item" data-slider-index="1" data-cloned="true" style="width: 941px;">
+                  <div class="item item-video2">
+                  <video poster="" id="" autoplay="" controls="" muted="" loop="" height="100%">
+                    <source src="./static/demo/open3.mp4" type="video/mp4">
+                  </video>
+                </div></div>
+              <div class="slider-item" data-slider-index="2" style="width: 941px;">
+                <div class="item item-video3">
+                  <video poster="" id="video1" autoplay="" controls="" muted="" loop="" height="100%">
+                    <source src="./static/demo/open4.mp4" type="video/mp4">
+                  </video>
+                </div></div>
+              <div class="slider-item" data-slider-index="3" style="width: 941px;">
+                <div class="item item-video4">
+                  <video poster="" id="video2" autoplay="" controls="" muted="" loop="" height="100%">
+                    <source src="./static/demo/open5.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <div class="slider-item" data-slider-index="4" data-cloned="true" style="width: 941px;">
+                <div class="item item-video5">
+                  <video poster="" id="" autoplay="" controls="" muted="" loop="" height="100%">
+                    <source src="./static/demo/open6.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <div class="slider-item" data-slider-index="5" data-cloned="true" style="width: 941px;">
+                <div class="item item-video6">
+                  <video poster="" id="" autoplay="" controls="" muted="" loop="" height="100%">
+                    <source src="./static/demo/open7.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <div class="slider-item" data-slider-index="6" data-cloned="true" style="width: 941px;">
+                <div class="item item-video7">
+                  <video poster="" id="" autoplay="" controls="" muted="" loop="" height="100%">
+                    <source src="./static/demo/open8.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <div class="slider-item" data-slider-index="7" data-cloned="true" style="width: 941px;">
+                <div class="item item-video8">
+                  <video poster="" id="" autoplay="" controls="" muted="" loop="" height="100%">
+                    <source src="./static/demo/open9.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <div class="slider-item" data-slider-index="8" data-cloned="true" style="width: 941px;">
+                <div class="item item-video9">
+                  <video poster="" id="" autoplay="" controls="" muted="" loop="" height="100%">
+                    <source src="./static/demo/open1.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+            <div class="slider-navigation-previous">
+              <svg viewBox="0 0 50 80" xml:space="preserve">
+                <polyline fill="currentColor" stroke-width=".5em" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 "></polyline>
+              </svg>
+            </div>
+            <div class="slider-navigation-next">
+              <svg viewBox="0 0 50 80" xml:space="preserve">
+              <polyline fill="currentColor" stroke-width=".5em" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 "></polyline>
+              </svg>
+            </div>
+            <div class="slider-pagination"><div class="slider-page is-active" data-index="0"></div><div class="slider-page" data-index="1"></div></div>
+            
+            <div class="slider-pagination">
+              <div class="slider-page" data-index="0"></div>
+              <div class="slider-page" data-index="1"></div>
+              <div class="slider-page" data-index="2"></div>
+              <div class="slider-page" data-index="3"></div>
+              <div class="slider-page" data-index="4"></div>
+              <div class="slider-page" data-index="5"></div>
+              <div class="slider-page" data-index="6"></div>
+              <div class="slider-page" data-index="7"></div>
+              <div class="slider-page" data-index="8"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="demo5-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+
+      <div class="column is-full">
+
+        <!-- 居中 -->
+        <div class="has-text-centered">
+          <h2 class="title is-4" style="color: white;">
+            Non-rigid objects
+          </h2>
+        </div>
+
+        <!-- 加个间距 -->
+        <div style="height: 20px;"></div>
+
+        <p style="color: white;">
+          <!-- We find that the temporal attention maps determine the generated video motions. By switching the temporal attention maps between the two videos in the first row, we
+          have the results in the second row, whose videos motions are totally swithed. -->
+        </p>
+
+        <!-- 加个间距 -->
+        <div style="height: 20px;"></div>
+
+        <style class="video-style2">
+          .videos-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+          }
+
+          .videos-container-4x2 .video-item {
+            flex: 0 0 calc(50% - 7.5px);
+            box-sizing: border-box;
+          }
+
+          .video-item video {
+            width: 25%;
+            height: auto;
+            border-radius: 8px;
+            background-color: #000;
+          }
+        </style>
+
+        <div class="videos-container videos-container-4x2">
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/non-rigid/FO1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/non-rigid/FO2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/non-rigid/FO3.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/non-rigid/selfeval_v1_img_78_audio.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="demo6-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+
+      <div class="column is-full">
+
+        <!-- 居中 -->
+        <div class="has-text-centered">
+          <h2 class="title is-4" style="color: white;">
+            Interactive demo
+          </h2>
+        </div>
+
+        <!-- 加个间距 -->
+        <div style="height: 20px;"></div>
+
+        <p style="color: white;">
+          We provide an interactive web demo that allows users to intuitively define human-object interactions
+           by manually dragging the human pose and object position. This interactive tool grants the model adaptive
+            freedom to resolve ambiguities, bridging the gap between artistic intent and generative feasibility.
+        </p>
+
+        <!-- 加个间距 -->
+        <div style="height: 20px;"></div>
+
+        <style class="video-style3">
+          .videos-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+          }
+
+          .videos-container-1 .video-item {
+            flex: 0 0 calc(100% - 7.5px);
+            box-sizing: border-box;
+          }
+
+          .video-item video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            background-color: #000;
+          }
+        </style>
+
+        <div class="videos-container videos-container-1">
+          <div class="video-item">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/demo/webui.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://arxiv.org/pdf/2404.15789.pdf">
+        <svg class="svg-inline--fa fa-file-pdf fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file-pdf" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"></path></svg><!-- <i class="fas fa-file-pdf"></i> Font Awesome fontawesome.com -->
+      </a>
+      <a class="icon-link" href="https://github.com/sjtuplayer/MotionMaster" disabled="">
+        <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg><!-- <i class="fab fa-github"></i> Font Awesome fontawesome.com -->
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            We borrow the <a href="https://github.com/nerfies/nerfies.github.io">source code</a> for our website.
+            We sincerely appreciate Nerfies authors for their awesome templates.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
